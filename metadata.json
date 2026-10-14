@@ -1,0 +1,6 @@
+{
+  "name": "DineQR — Smart Restaurant Ordering System",
+  "description": "Sistem pemesanan restoran berbasis QR Code dengan menu digital meja, status dapur real-time, kasir kas tunai, dan manajemen admin.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
