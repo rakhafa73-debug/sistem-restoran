@@ -108,13 +108,12 @@ export function Navbar({ onOpenCart, onOpenTracker, activeView, setActiveView }:
             </div>
           )}
 
-          <div
-            className={`flex items-center space-x-1.5 px-2 py-1 rounded-md ${
-              isConnected ? 'bg-emerald-950/70 text-emerald-400 border border-emerald-800/60' : 'bg-red-950/70 text-red-400 border border-red-800/60'
-            }`}
-          >
-            <Radio className={`w-3 h-3 ${isConnected ? 'animate-pulse' : ''}`} />
-            <span className="font-mono text-[10px] tracking-wide">{isConnected ? 'LIVE SYNC' : 'OFFLINE'}</span>
+          <div className="flex items-center space-x-1.5 px-2.5 py-1 rounded-md bg-emerald-950/80 text-emerald-400 border border-emerald-700/60 shadow-xs">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span className="font-mono text-[10px] font-bold tracking-wider">ONLINE • LIVE SYNC</span>
           </div>
         </div>
       </div>

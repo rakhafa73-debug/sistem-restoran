@@ -210,18 +210,25 @@ app.post('/api/orders/:id/cancel-request', (req, res) => {
 // ==========================================
 app.get('/api/realtime/stream', (req, res) => {
   res.setHeader('Content-Type', 'text/event-stream');
-  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Cache-Control', 'no-cache, no-transform');
   res.setHeader('Connection', 'keep-alive');
+  res.setHeader('X-Accel-Buffering', 'no');
   res.flushHeaders();
 
   // Send initial connected ping
   res.write(`data: ${JSON.stringify({ type: 'CONNECTED', timestamp: Date.now() })}\n\n`);
+
+  // Heartbeat ping every 10 seconds to keep connection constantly ONLINE through Cloud Run proxies
+  const keepAliveInterval = setInterval(() => {
+    res.write(`: heartbeat\n\n`);
+  }, 10000);
 
   const unsubscribe = db.subscribe((event) => {
     res.write(`data: ${JSON.stringify(event)}\n\n`);
   });
 
   req.on('close', () => {
+    clearInterval(keepAliveInterval);
     unsubscribe();
   });
 });

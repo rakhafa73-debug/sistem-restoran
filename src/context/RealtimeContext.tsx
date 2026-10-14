@@ -12,7 +12,7 @@ interface RealtimeContextType {
 const RealtimeContext = createContext<RealtimeContextType | undefined>(undefined);
 
 export function RealtimeProvider({ children }: { children: React.ReactNode }) {
-  const [isConnected, setIsConnected] = useState(false);
+  const [isConnected, setIsConnected] = useState(true);
   const [lastEvent, setLastEvent] = useState<{ type: string; payload: any } | null>(null);
   const listenersRef = useRef<RealtimeListener[]>([]);
 
