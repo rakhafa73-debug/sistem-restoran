@@ -43,9 +43,11 @@ export function CustomerView({ onOpenCart, onOpenTracker }: CustomerViewProps) {
       setIsLoading(true);
       try {
         const data = await api.getPublicMenu();
-        setCategories(data.categories);
-        setMenuItems(data.items);
-        setRestaurant(data.restaurant);
+        if (data) {
+          setCategories(Array.isArray(data.categories) ? data.categories : []);
+          setMenuItems(Array.isArray(data.items) ? data.items : []);
+          if (data.restaurant) setRestaurant(data.restaurant);
+        }
         setTableError(null);
       } catch (err: unknown) {
         console.error('Failed to load menu:', err);

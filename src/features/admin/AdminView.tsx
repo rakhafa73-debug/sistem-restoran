@@ -86,16 +86,18 @@ export function AdminView() {
         api.getAuditLogs(),
       ]);
 
-      setReportData(rep.report);
-      setTables(tbl.tables);
-      setMenuItems(men.menuItems);
-      setCategories(cat.categories);
-      setStaffList(stf.profiles);
-      setRestaurantSettings(set.restaurant);
-      setAuditLogs(aud.logs);
-      if (cat.categories.length > 0 && !newMenuCategory) {
-        setNewMenuCategory(cat.categories[0].id);
+      if (rep?.report) setReportData(rep.report);
+      if (Array.isArray(tbl?.tables)) setTables(tbl.tables);
+      if (Array.isArray(men?.menuItems)) setMenuItems(men.menuItems);
+      if (Array.isArray(cat?.categories)) {
+        setCategories(cat.categories);
+        if (cat.categories.length > 0 && !newMenuCategory) {
+          setNewMenuCategory(cat.categories[0].id);
+        }
       }
+      if (Array.isArray(stf?.profiles)) setStaffList(stf.profiles);
+      if (set?.restaurant) setRestaurantSettings(set.restaurant);
+      if (Array.isArray(aud?.logs)) setAuditLogs(aud.logs);
     } catch (err) {
       console.error('Failed to load admin data:', err);
     } finally {
